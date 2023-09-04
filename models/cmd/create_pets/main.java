@@ -55,7 +55,7 @@ class mysql_example {
 
             DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZZZZZ");
             ZonedDateTime dt0 = ZonedDateTime.now();
-               System.out.println(fmt.format(dt0));
+            System.out.println(fmt.format(dt0));
 
             for (int i = 0; i < iterations; i++) {
                 preparedStmt.setString (1, "Java A" + String.valueOf(i));
