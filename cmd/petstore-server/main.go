@@ -10,6 +10,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/spf13/cobra"
 
@@ -70,6 +71,37 @@ Run behind the aauth-go sandbox:
 	f.StringVar(&o.url, "url", "", "the resource's public URL and AAuth identifier, such as https://petstore.aauth.test")
 	f.StringSliceVar(&o.trust, "trust", nil, "person server whose tokens to accept (repeatable; required with --auth aauth)")
 	f.StringVar(&o.caFile, "ca-file", "", "PEM file of an extra root CA for fetching issuers' keys, such as the sandbox CA")
+	cmd.AddCommand(newHealth())
+	return cmd
+}
+
+// newHealth checks a running server, for container health checks: the
+// image has no shell or curl.
+func newHealth() *cobra.Command {
+	var addr string
+	cmd := &cobra.Command{
+		Use:   "health",
+		Short: "Check that a server is answering",
+		RunE: func(cmd *cobra.Command, _ []string) error {
+			hc := &http.Client{Timeout: 5 * time.Second}
+			req, err := http.NewRequestWithContext(cmd.Context(), http.MethodGet, "http://"+addr+"/openapi.json", nil)
+			if err != nil {
+				return err
+			}
+			res, err := hc.Do(req)
+			if err != nil {
+				return err
+			}
+			if err := res.Body.Close(); err != nil {
+				return err
+			}
+			if res.StatusCode != http.StatusOK {
+				return fmt.Errorf("%s answered %d", addr, res.StatusCode)
+			}
+			return nil
+		},
+	}
+	cmd.Flags().StringVar(&addr, "addr", "127.0.0.1:8080", "address the server listens on")
 	return cmd
 }
 
