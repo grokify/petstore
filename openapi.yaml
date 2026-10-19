@@ -25,6 +25,9 @@ paths:
       summary: Add a new pet to the store
       description: ''
       operationId: addPet
+      x-aauth:
+        access: auth
+        scope: 'write:pets'
       responses:
         '200':
           description: successful operation
@@ -52,6 +55,9 @@ paths:
         description: API documentation for the updatePet operation
         url: http://petstore.swagger.io/v2/doc/updatePet
       operationId: updatePet
+      x-aauth:
+        access: auth
+        scope: 'write:pets'
       responses:
         '200':
           description: successful operation
@@ -81,6 +87,8 @@ paths:
       summary: Finds Pets by status
       description: Multiple status values can be provided with comma separated strings
       operationId: findPetsByStatus
+      x-aauth:
+        access: agent
       parameters:
         - name: status
           in: query
@@ -145,6 +153,8 @@ paths:
         Multiple tags can be provided with comma separated strings. Use tag1,
         tag2, tag3 for testing.
       operationId: findPetsByTags
+      x-aauth:
+        access: agent
       parameters:
         - name: tags
           in: query
@@ -183,6 +193,8 @@ paths:
       summary: Find pet by ID
       description: Returns a single pet
       operationId: getPetById
+      x-aauth:
+        access: agent
       parameters:
         - name: petId
           in: path
@@ -232,6 +244,9 @@ paths:
       summary: Updates a pet in the store with form data
       description: ''
       operationId: updatePetWithForm
+      x-aauth:
+        access: auth
+        scope: 'write:pets'
       parameters:
         - name: petId
           in: path
@@ -265,6 +280,9 @@ paths:
       summary: Deletes a pet
       description: ''
       operationId: deletePet
+      x-aauth:
+        access: auth
+        scope: 'write:pets'
       parameters:
         - name: api_key
           in: header
@@ -292,6 +310,9 @@ paths:
       summary: uploads an image
       description: ''
       operationId: uploadFile
+      x-aauth:
+        access: auth
+        scope: 'write:pets'
       parameters:
         - name: petId
           in: path
@@ -331,6 +352,8 @@ paths:
       summary: Returns pet inventories by status
       description: Returns a map of status codes to quantities
       operationId: getInventory
+      x-aauth:
+        access: agent
       responses:
         '200':
           description: successful operation
@@ -361,6 +384,9 @@ paths:
       summary: Place an order for a pet
       description: ''
       operationId: placeOrder
+      x-aauth:
+        access: auth
+        scope: 'write:orders'
       responses:
         '200':
           description: successful operation
@@ -389,6 +415,8 @@ paths:
         For valid response try integer IDs with value <= 5 or > 10. Other values
         will generate exceptions
       operationId: getOrderById
+      x-aauth:
+        access: person
       parameters:
         - name: orderId
           in: path
@@ -421,6 +449,9 @@ paths:
         For valid response try integer IDs with value < 1000. Anything above
         1000 or nonintegers will generate API errors
       operationId: deleteOrder
+      x-aauth:
+        access: auth
+        scope: 'write:orders'
       parameters:
         - name: orderId
           in: path
@@ -440,6 +471,8 @@ paths:
       summary: Create user
       description: This can only be done by the logged in user.
       operationId: createUser
+      x-aauth:
+        access: person
       responses:
         default:
           description: successful operation
@@ -459,6 +492,8 @@ paths:
       summary: Creates list of users with given input array
       description: ''
       operationId: createUsersWithArrayInput
+      x-aauth:
+        access: person
       responses:
         default:
           description: successful operation
@@ -473,6 +508,8 @@ paths:
       summary: Creates list of users with given input array
       description: ''
       operationId: createUsersWithListInput
+      x-aauth:
+        access: person
       responses:
         default:
           description: successful operation
@@ -487,6 +524,8 @@ paths:
       summary: Logs user into the system
       description: ''
       operationId: loginUser
+      x-aauth:
+        access: agent
       parameters:
         - name: username
           in: query
@@ -538,6 +577,8 @@ paths:
       summary: Logs out current logged in user session
       description: ''
       operationId: logoutUser
+      x-aauth:
+        access: agent
       responses:
         default:
           description: successful operation
@@ -550,6 +591,8 @@ paths:
       summary: Get user by user name
       description: ''
       operationId: getUserByName
+      x-aauth:
+        access: person
       parameters:
         - name: username
           in: path
@@ -577,6 +620,8 @@ paths:
       summary: Updated user
       description: This can only be done by the logged in user.
       operationId: updateUser
+      x-aauth:
+        access: person
       parameters:
         - name: username
           in: path
@@ -604,6 +649,8 @@ paths:
       summary: Delete user
       description: This can only be done by the logged in user.
       operationId: deleteUser
+      x-aauth:
+        access: person
       parameters:
         - name: username
           in: path
@@ -618,6 +665,16 @@ paths:
           description: User not found
       security:
         - api_key: []
+x-aauth:
+  description: >-
+    Access each operation requires when the server runs as an AAuth
+    resource (draft-hardt-oauth-aauth-protocol). An operation's x-aauth
+    access is agent (the agent's identity), person (the person the agent
+    acts for) or auth (an auth token granting its scope, which the person
+    approves).
+  scopes:
+    'write:pets': Add, change and remove pets in the catalog.
+    'write:orders': Place and cancel orders for pets on your behalf.
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
