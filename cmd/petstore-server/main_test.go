@@ -1,6 +1,7 @@
 package main
 
 import (
+	"net/http/httptest"
 	"os"
 	"path/filepath"
 	"strings"
@@ -32,5 +33,26 @@ func TestHandlerOptions(t *testing.T) {
 	o.caFile = ""
 	if _, err := o.handler(); err != nil {
 		t.Errorf("aauth mode: %v", err)
+	}
+}
+
+func TestHealth(t *testing.T) {
+	h, err := (&options{auth: "none"}).handler()
+	if err != nil {
+		t.Fatal(err)
+	}
+	srv := httptest.NewServer(h)
+	defer srv.Close()
+	root := newRoot()
+	root.SetArgs([]string{"health", "--addr", strings.TrimPrefix(srv.URL, "http://")})
+	if err := root.Execute(); err != nil {
+		t.Fatal(err)
+	}
+	srv.Close()
+	root = newRoot()
+	root.SetArgs([]string{"health", "--addr", strings.TrimPrefix(srv.URL, "http://")})
+	root.SetErr(new(strings.Builder))
+	if err := root.Execute(); err == nil {
+		t.Fatal("health passed with the server stopped")
 	}
 }
