@@ -1,0 +1,6 @@
+$kind: collection
+name: Petstore Smoke
+description: Smoke checks against the public Petstore demo API.
+variables:
+  - key: base_url
+    value: 'https://petstore.swagger.io/v2'
