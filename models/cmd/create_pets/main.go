@@ -76,7 +76,7 @@ func main() {
 	tr.StartCount = count
 	tr.StartTime = time.Now()
 
-	fmtutil.PrintJSON(tr)
+	logutil.FatalErr(fmtutil.PrintJSON(tr))
 
 	for i := 0; i < tr.Iterations; i++ {
 		name := cryptocharacters.NameX(uint(i))
@@ -98,7 +98,7 @@ func main() {
 	tr.Duration = tr.EndTime.Sub(tr.StartTime)
 	tr.DurationMins = tr.Duration.Minutes()
 
-	fmtutil.PrintJSON(tr)
+	logutil.FatalErr(fmtutil.PrintJSON(tr))
 
 	fmt.Println("DONE")
 }
