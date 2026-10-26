@@ -15,3 +15,7 @@ site/
 .postman/
 .specify/
 .claude/
+
+# Benchmark output and data source files hold hostnames and credentials.
+models/cmd/create_pets/_results.txt
+datasources.json
