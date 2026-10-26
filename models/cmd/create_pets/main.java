@@ -1,6 +1,6 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 
-//DEPS mysql:mysql-connector-java:8.0.16
+//DEPS mysql:mysql-connector-java:5.1.49
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -32,7 +32,7 @@ class mysql_example {
         PrintStream ps = new PrintStream(baos);
 
         String usessl = "&useSSL=false";
-        usessl = "";
+        usessl = "&enabledTLSProtocols=TLSv1.2";
 
         // useSSL=false is to connect to 5.7 server https://stackoverflow.com/questions/67332909/why-can-java-not-connect-to-mysql-5-7-after-the-latest-jdk-update-and-how-should
         ps.printf("jdbc:mysql://%s:%s/%s?user=%s&password=%s%s", args[0], args[1], args[2], args[3], args[4], usessl);
