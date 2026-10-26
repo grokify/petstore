@@ -1,0 +1,35 @@
+site_name: OpenAPI Petstore
+site_description: OpenAPI Petstore — a server with optional AAuth, and Postman AI-readiness reports
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep orange
+      accent: deep orange
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep orange
+      accent: deep orange
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.top
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+
+nav:
+  - Home: index.md
+  - Guides:
+    - Test AAuth Interop: guides/aauth-interop.md
+    - Postman AI Readiness: guides/postman/index.md

@@ -32,7 +32,7 @@ Orders belong to the person who placed them: another person's order is not
 found.
 
 The quickest way to try it is behind the
-[aauth-go sandbox](https://github.com/aauth-dev/aauth-go/blob/main/docs/guides/sandbox.md),
+[aauth-go sandbox](https://aauth-dev.github.io/aauth-go/guides/sandbox/),
 which runs an agent provider and a person server and serves the Petstore as
 `https://petstore.aauth.test`:
 
@@ -55,6 +55,9 @@ aauth-sandbox serve --upstream petstore=http://127.0.0.1:8080
 
 The resource metadata is at `/.well-known/aauth-resource.json`, with the scope
 descriptions a person server shows on its consent page.
+
+To test agents and AAuth implementations against the Petstore, see the
+[interop guide](docs/guides/aauth-interop.md).
 
 ## Container
 
