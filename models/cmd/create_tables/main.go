@@ -24,7 +24,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	dss := cmd.GetDataSourceSet()
+	dss, err := cmd.LoadDataSourceSet()
+	if err != nil {
+		log.Fatal(err)
+	}
 	ds, err := dss.GetDataSource(opts.TestEnvironment)
 	if err != nil {
 		fmt.Printf("Test Environments are: (%s)\n", strings.Join(dss.Keys(), ","))

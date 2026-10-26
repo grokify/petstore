@@ -1,0 +1,18 @@
+{
+  "MY8MICRO": {
+    "driver": "mysql",
+    "hostname": "db.example.com",
+    "port": 3306,
+    "user": "testuser",
+    "password": "your-password",
+    "database": "petstore"
+  },
+  "MY5MICRO": {
+    "driver": "mysql",
+    "hostname": "db-57.example.com",
+    "port": 3306,
+    "user": "testuser",
+    "password": "your-password",
+    "database": "petstore"
+  }
+}
