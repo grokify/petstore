@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/grokify/mogo/fmt/fmtutil"
 	"github.com/grokify/petstore/models"
 	"github.com/grokify/petstore/models/cmd"
 	flags "github.com/jessevdk/go-flags"
@@ -34,9 +33,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if err := fmtutil.PrintJSON(ds); err != nil {
-		log.Fatal(err)
-	}
+	fmt.Printf("Creating tables in %s at %s\n", ds.Database, ds.Hostname)
 	db, err := ds.Open()
 	if err != nil {
 		panic(err)
