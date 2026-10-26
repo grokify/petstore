@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OpenAPI Petstore — AI Readiness</title>
+<style>
+    :root { color-scheme: light dark; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        margin: 0;
+        padding: 32px;
+        background: #f5f7fa;
+        color: #1a1a1a;
+    }
+    .report { max-width: 960px; margin: 0 auto; }
+    .report-header { margin-bottom: 24px; }
+    .report-title { margin: 0 0 4px; font-size: 24px; }
+    .report-meta { color: #6b7280; font-size: 13px; }
+    .card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 20px 24px;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .score-row { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+    .score-big { font-size: 40px; font-weight: 700; }
+    .pill {
+        display: inline-block;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 4px 12px;
+        border-radius: 999px;
+    }
+    .pill--good { background: #d1fae5; color: #065f46; }
+    .pill--warn { background: #fef3c7; color: #92400e; }
+    .pill--bad  { background: #fee2e2; color: #991b1b; }
+    .score-sub { color: #6b7280; font-size: 14px; margin-top: 8px; }
+    .notices { margin-bottom: 16px; }
+    .notice {
+        background: #fef3c7;
+        color: #92400e;
+        border: 1px solid #fde68a;
+        border-radius: 8px;
+        padding: 10px 14px;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { text-align: left; color: #6b7280; font-weight: 600; padding: 8px; border-bottom: 1px solid #e5e7eb; }
+    td { padding: 8px; border-bottom: 1px solid #f3f4f6; vertical-align: top; }
+    .signal-name { font-family: "SF Mono", Menlo, Monaco, Consolas, monospace; font-size: 13px; }
+    .signal-source { color: #9ca3af; font-size: 12px; }
+    .evidence { color: #6b7280; font-size: 12px; font-family: inherit; margin-top: 4px; }
+    .pts { font-weight: 700; }
+    .pts--ok   { color: #059669; }
+    .pts--warn { color: #d97706; }
+    .pts--bad  { color: #dc2626; }
+    .recommendations { padding-left: 20px; margin: 0; }
+    .recommendations li { margin-bottom: 8px; font-size: 14px; }
+    .empty-state { color: #6b7280; font-size: 14px; }
+    h2 { font-size: 16px; margin: 0 0 12px; color: #374151; }
+</style>
+</head>
+<body>
+    <main class="report">
+        <header class="report-header">
+            <h1 class="report-title">OpenAPI Petstore</h1>
+            <div class="report-meta">
+                OpenAPI Specification · ./openapi.yaml
+                · Generated 2026-09-22T10:52:46.156Z
+            </div>
+        </header>
+        
+        <section class="card">
+            <div class="score-row">
+                <span class="score-big">80/100</span>
+                <span class="pill pill--good">Excellent</span>
+                <span class="pill">confidence: high</span>
+            </div>
+            <div class="score-sub">
+                Complexity 2/10 (Simple) —
+                RCS=5, adj=-1, ECS=4
+                · Doc coverage: high
+                · OpenAPI 3.1.0 · 20 endpoints · 6 schemas
+                
+            </div>
+        </section>
+        <section class="card">
+            <h2>Signals</h2>
+            <table>
+                <thead>
+                    <tr><th>Signal</th><th>Value</th><th>Bucket</th><th>Pts</th><th>Source</th></tr>
+                </thead>
+                <tbody>
+        <tr>
+            <td class="signal-name">auth_required<div class="evidence">securitySchemes: petstore_auth, api_key</div></td>
+            <td>optional</td>
+            <td>optional</td>
+            <td class="pts pts--warn">1</td>
+            <td class="signal-source">spec</td>
+        </tr>
+    
+        <tr>
+            <td class="signal-name">total_endpoints</td>
+            <td>20</td>
+            <td>6-20</td>
+            <td class="pts pts--warn">1</td>
+            <td class="signal-source">spec</td>
+        </tr>
+    
+        <tr>
+            <td class="signal-name">schema_depth</td>
+            <td>2</td>
+            <td>shallow</td>
+            <td class="pts pts--ok">0</td>
+            <td class="signal-source">spec</td>
+        </tr>
+    
+        <tr>
+            <td class="signal-name">avg_response_size_kb<div class="evidence">3 documented example(s) sampled</div></td>
+            <td>0.12</td>
+            <td>&lt;=5</td>
+            <td class="pts pts--ok">0</td>
+            <td class="signal-source">examples</td>
+        </tr>
+    
+        <tr>
+            <td class="signal-name">error_surface<div class="evidence">documented responses: 400, 404, 405</div></td>
+            <td>3</td>
+            <td>low</td>
+            <td class="pts pts--ok">0</td>
+            <td class="signal-source">spec</td>
+        </tr>
+    
+        <tr>
+            <td class="signal-name">error_codes_count<div class="evidence">documented responses: 400, 404, 405</div></td>
+            <td>3</td>
+            <td>0-3</td>
+            <td class="pts pts--ok">0</td>
+            <td class="signal-source">spec</td>
+        </tr>
+    
+        <tr>
+            <td class="signal-name">pagination_supported</td>
+            <td>false</td>
+            <td>no</td>
+            <td class="pts pts--ok">0</td>
+            <td class="signal-source">spec</td>
+        </tr>
+    
+        <tr>
+            <td class="signal-name">pagination_pattern</td>
+            <td>none</td>
+            <td>none</td>
+            <td class="pts pts--ok">0</td>
+            <td class="signal-source">spec</td>
+        </tr>
+    
+        <tr>
+            <td class="signal-name">parameter_complexity</td>
+            <td>medium</td>
+            <td>medium</td>
+            <td class="pts pts--warn">1</td>
+            <td class="signal-source">spec</td>
+        </tr>
+    
+        <tr>
+            <td class="signal-name">rate_limiting<div class="evidence">documented header &#39;x-ratelimit-limit&#39; · documented header &#39;x-ratelimit-remaining&#39; · documented header &#39;x-ratelimit-reset&#39;</div></td>
+            <td>3</td>
+            <td>complex</td>
+            <td class="pts pts--bad">2</td>
+            <td class="signal-source">spec</td>
+        </tr>
+    </tbody>
+            </table>
+        </section>
+        <section class="card">
+            <h2>Recommendations</h2>
+            <ul class="recommendations"><li>Rate limiting is documented — ensure quota tiers are stated and agents are told to honor `Retry-After` / `X-RateLimit-Reset` when backing off.</li><li>Authentication is declared — make sure credential acquisition is also documented (where to obtain keys/tokens, scopes needed) so an agent operator can set up access.</li><li>Large surface area: scope the AI agent to a focused subset of endpoints, or split the spec into smaller domains.</li><li>Reduce parameter count, simplify nested object parameters, or document each parameter&#39;s role; AI selects parameters from descriptions.</li></ul>
+        </section>
+    </main>
+</body>
+</html>
