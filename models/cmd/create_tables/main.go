@@ -31,7 +31,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmtutil.PrintJSON(ds)
+	if err := fmtutil.PrintJSON(ds); err != nil {
+		log.Fatal(err)
+	}
 	db, err := ds.Open()
 	if err != nil {
 		panic(err)
