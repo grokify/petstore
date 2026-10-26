@@ -1,0 +1,133 @@
+{
+  "source": {
+    "name": "OpenAPI Petstore",
+    "identifier": "./openapi.yaml",
+    "inputType": "FILE_PATH"
+  },
+  "sourceType": "specification",
+  "complexity": {
+    "rcs": 5,
+    "adjustment": -1,
+    "ecs": 4,
+    "score_0_10": 2,
+    "bucket": "Simple"
+  },
+  "readiness": {
+    "score_0_100": 80,
+    "bucket": "Excellent"
+  },
+  "confidence": "high",
+  "docCoverage": {
+    "bucket": "high",
+    "adjustment": -1,
+    "evidence": {
+      "ops_documented_ratio": 1,
+      "params_documented_ratio": 0.9285714285714286,
+      "info_description_present": 1,
+      "blended_coverage": 0.9761904761904763
+    }
+  },
+  "signals": [
+    {
+      "name": "auth_required",
+      "value": "optional",
+      "bucket": "optional",
+      "points": 1,
+      "source": "spec",
+      "evidence": [
+        "securitySchemes: petstore_auth, api_key"
+      ]
+    },
+    {
+      "name": "total_endpoints",
+      "value": 20,
+      "bucket": "6-20",
+      "points": 1,
+      "source": "spec"
+    },
+    {
+      "name": "schema_depth",
+      "value": 2,
+      "bucket": "shallow",
+      "points": 0,
+      "source": "spec"
+    },
+    {
+      "name": "avg_response_size_kb",
+      "value": 0.12,
+      "bucket": "<=5",
+      "points": 0,
+      "source": "examples",
+      "evidence": [
+        "3 documented example(s) sampled"
+      ]
+    },
+    {
+      "name": "error_surface",
+      "value": 3,
+      "bucket": "low",
+      "points": 0,
+      "source": "spec",
+      "evidence": [
+        "documented responses: 400, 404, 405"
+      ]
+    },
+    {
+      "name": "error_codes_count",
+      "value": 3,
+      "bucket": "0-3",
+      "points": 0,
+      "source": "spec",
+      "evidence": [
+        "documented responses: 400, 404, 405"
+      ]
+    },
+    {
+      "name": "pagination_supported",
+      "value": false,
+      "bucket": "no",
+      "points": 0,
+      "source": "spec"
+    },
+    {
+      "name": "pagination_pattern",
+      "value": "none",
+      "bucket": "none",
+      "points": 0,
+      "source": "spec"
+    },
+    {
+      "name": "parameter_complexity",
+      "value": "medium",
+      "bucket": "medium",
+      "points": 1,
+      "source": "spec"
+    },
+    {
+      "name": "rate_limiting",
+      "value": 3,
+      "bucket": "complex",
+      "points": 2,
+      "source": "spec",
+      "evidence": [
+        "documented header 'x-ratelimit-limit'",
+        "documented header 'x-ratelimit-remaining'",
+        "documented header 'x-ratelimit-reset'"
+      ]
+    }
+  ],
+  "recommendations": [
+    "Rate limiting is documented — ensure quota tiers are stated and agents are told to honor `Retry-After` / `X-RateLimit-Reset` when backing off.",
+    "Authentication is declared — make sure credential acquisition is also documented (where to obtain keys/tokens, scopes needed) so an agent operator can set up access.",
+    "Large surface area: scope the AI agent to a focused subset of endpoints, or split the spec into smaller domains.",
+    "Reduce parameter count, simplify nested object parameters, or document each parameter's role; AI selects parameters from descriptions."
+  ],
+  "stats": {
+    "totalEndpoints": 20,
+    "totalFolders": 0,
+    "totalSchemas": 6,
+    "totalExamples": 0,
+    "specVersion": "3.1.0",
+    "unknownSignals": 0
+  }
+}
