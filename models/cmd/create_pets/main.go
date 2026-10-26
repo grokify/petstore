@@ -54,9 +54,8 @@ func main() {
 	tr := TestRun{
 		Nickname:   opts.TestEnvironment,
 		Iterations: int(opts.Iterations),
+		Host:       ds.Hostname,
 	}
-
-	tr.Host = ds.Hostname
 
 	db, err := ds.Open()
 	logutil.FatalErr(err)
@@ -72,11 +71,14 @@ func main() {
 	logutil.FatalErr(err)
 	tr.Version = ver
 
+	fmt.Printf("VERSION (%s)\n", ver)
+
 	count, err := gomysql.GetInt(db, "SELECT COUNT(*) FROM pet")
 	logutil.FatalErr(err)
 	tr.StartCount = count
 	tr.StartTime = time.Now()
 
+	fmt.Printf("COUNT (%d)\n", count)
 	logutil.FatalErr(fmtutil.PrintJSON(tr))
 
 	for i := 0; i < tr.Iterations; i++ {
