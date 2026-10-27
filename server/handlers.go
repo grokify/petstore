@@ -253,7 +253,7 @@ func (h *handlers) uploadFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	r.Body = http.MaxBytesReader(w, r.Body, maxUpload)
-	if err := r.ParseMultipartForm(maxUpload); err != nil {
+	if err := r.ParseMultipartForm(maxUpload); err != nil { //nolint:gosec // G120: body limited by http.MaxBytesReader above; gosec does not recognize it for ParseMultipartForm
 		writeError(w, http.StatusBadRequest, "a multipart/form-data body is required: "+err.Error())
 		return
 	}
