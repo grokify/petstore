@@ -31,9 +31,12 @@ Petstore fronted at `https://petstore.aauth.test`:
 
 ```bash
 cd aauth-postman
-docker compose up -d --build --wait
-docker compose --profile test run --rm newman-petstore   # a reference agent
+docker compose --profile petstore up -d --build --wait
+docker compose --profile petstore run --rm newman-petstore   # a reference agent
 ```
+
+The base sandbox starts without the `petstore` profile; the profile adds the
+Petstore as a resource server of its own, behind the sandbox.
 
 The Compose file builds the Petstore image from this repository, found at
 `../../grokify/petstore` unless you set `PETSTORE_DIR`. To run the pieces by hand, see the flags in the
@@ -78,5 +81,5 @@ The store is in memory and starts with six pets. A pet that an order sells is
 gone until the server restarts:
 
 ```bash
-docker compose up -d --force-recreate petstore
+docker compose --profile petstore up -d --force-recreate petstore
 ```

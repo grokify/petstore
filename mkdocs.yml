@@ -1,4 +1,5 @@
 site_name: OpenAPI Petstore
+site_url: https://grokify.github.io/petstore/
 site_description: OpenAPI Petstore — a server with optional AAuth, and Postman AI-readiness reports
 
 theme:
@@ -31,5 +32,7 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Guides:
+    - Run the Server: guides/server.md
     - Test AAuth Interop: guides/aauth-interop.md
+    - MySQL Tools: guides/mysql-tools.md
     - Postman AI Readiness: guides/postman/index.md
