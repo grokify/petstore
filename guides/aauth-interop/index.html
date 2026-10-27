@@ -10,11 +10,13 @@
       
       
       
+        <link rel="canonical" href="https://grokify.github.io/petstore/guides/aauth-interop/">
       
-        <link rel="prev" href="../..">
+      
+        <link rel="prev" href="../server/">
       
       
-        <link rel="next" href="../postman/">
+        <link rel="next" href="../mysql-tools/">
       
       
         
@@ -307,6 +309,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run the Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -440,6 +470,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../mysql-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MySQL Tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../postman/" class="md-nav__link">
         
   
@@ -448,6 +506,116 @@
     
   
     Postman AI Readiness
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Releases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/v0.2.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v0.2.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/v0.1.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v0.1.0
   
 
     
@@ -615,9 +783,11 @@ on its consent page, is at <code>/.well-known/aauth-resource.json</code>.</p>
 a Compose file that runs the sandbox and the Petstore together, with the
 Petstore fronted at <code>https://petstore.aauth.test</code>:</p>
 <pre><code class="language-bash">cd aauth-postman
-docker compose up -d --build --wait
-docker compose --profile test run --rm newman-petstore   # a reference agent
+docker compose --profile petstore up -d --build --wait
+docker compose --profile petstore run --rm newman-petstore   # a reference agent
 </code></pre>
+<p>The base sandbox starts without the <code>petstore</code> profile; the profile adds the
+Petstore as a resource server of its own, behind the sandbox.</p>
 <p>The Compose file builds the Petstore image from this repository, found at
 <code>../../grokify/petstore</code> unless you set <code>PETSTORE_DIR</code>. To run the pieces by hand, see the flags in the
 <a href="https://github.com/grokify/petstore#run-it-as-an-aauth-resource">README</a>.</p>
@@ -650,7 +820,7 @@ server named by <code>--trust</code>, so give it your server's origin.</p>
 <h2 id="reset-the-store">Reset the Store</h2>
 <p>The store is in memory and starts with six pets. A pet that an order sells is
 gone until the server restarts:</p>
-<pre><code class="language-bash">docker compose up -d --force-recreate petstore
+<pre><code class="language-bash">docker compose --profile petstore up -d --force-recreate petstore
 </code></pre>
 
 
