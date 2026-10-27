@@ -1,0 +1,15 @@
+$kind: http-request
+name: 'find pets by status'
+method: GET
+url: '{{base_url}}/pet/findByStatus?status=available'
+order: 1000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("status is 200", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("body is an array", function () {
+        pm.expect(pm.response.json()).to.be.an("array");
+      });

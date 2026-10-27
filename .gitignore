@@ -1,0 +1,21 @@
+
+# MkDocs build output
+site/
+
+# macOS
+.DS_Store
+
+# Editor / local
+*.swp
+.idea/
+.vscode/
+
+# Local tooling state: Postman workspace links, spec-kit workflow runs and
+# skills, and agent settings. Machine-specific; not part of the project.
+.postman/
+.specify/
+.claude/
+
+# Benchmark output and data source files hold hostnames and credentials.
+models/cmd/create_pets/_results.txt
+datasources.json

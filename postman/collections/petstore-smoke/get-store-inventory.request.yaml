@@ -1,0 +1,18 @@
+$kind: http-request
+name: 'get store inventory'
+method: GET
+url: '{{base_url}}/store/inventory'
+order: 2000
+headers:
+  - key: api_key
+    value: special-key
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("status is 200", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("inventory is an object", function () {
+        pm.expect(pm.response.json()).to.be.an("object");
+      });

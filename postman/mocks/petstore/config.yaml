@@ -1,0 +1,11 @@
+version: 1
+id: 72cf227d-1ad2-4b69-82b7-d263573e9de9
+name: petstore
+slug: petstore
+protocol: http
+port: 4010
+scenarios:
+  - name: default
+    path: ./default.js
+    default: true
+    id: 01a0c89f-2da4-73c7-97ce-55ae18664a2f

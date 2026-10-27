@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/grokify/mogo/fmt/fmtutil"
 	"github.com/grokify/petstore/models"
 	"github.com/grokify/petstore/models/cmd"
 	flags "github.com/jessevdk/go-flags"
@@ -24,14 +23,17 @@ func main() {
 		log.Fatal(err)
 	}
 
-	dss := cmd.GetDataSourceSet()
+	dss, err := cmd.LoadDataSourceSet()
+	if err != nil {
+		log.Fatal(err)
+	}
 	ds, err := dss.GetDataSource(opts.TestEnvironment)
 	if err != nil {
 		fmt.Printf("Test Environments are: (%s)\n", strings.Join(dss.Keys(), ","))
 		log.Fatal(err)
 	}
 
-	fmtutil.PrintJSON(ds)
+	fmt.Printf("Creating tables in %s at %s\n", ds.Database, ds.Hostname)
 	db, err := ds.Open()
 	if err != nil {
 		panic(err)

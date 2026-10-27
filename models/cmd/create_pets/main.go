@@ -40,7 +40,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	dss := cmd.GetDataSourceSet()
+	dss, err := cmd.LoadDataSourceSet()
+	logutil.FatalErr(err)
 	ds, err := dss.GetDataSource(opts.TestEnvironment)
 	if err != nil {
 		fmt.Printf("Test Environments are: (%s)\n", strings.Join(dss.Keys(), ","))
@@ -53,9 +54,8 @@ func main() {
 	tr := TestRun{
 		Nickname:   opts.TestEnvironment,
 		Iterations: int(opts.Iterations),
+		Host:       ds.Hostname,
 	}
-
-	tr.Host = ds.Hostname
 
 	db, err := ds.Open()
 	logutil.FatalErr(err)
@@ -71,12 +71,15 @@ func main() {
 	logutil.FatalErr(err)
 	tr.Version = ver
 
+	fmt.Printf("VERSION (%s)\n", ver)
+
 	count, err := gomysql.GetInt(db, "SELECT COUNT(*) FROM pet")
 	logutil.FatalErr(err)
 	tr.StartCount = count
 	tr.StartTime = time.Now()
 
-	fmtutil.PrintJSON(tr)
+	fmt.Printf("COUNT (%d)\n", count)
+	logutil.FatalErr(fmtutil.PrintJSON(tr))
 
 	for i := 0; i < tr.Iterations; i++ {
 		name := cryptocharacters.NameX(uint(i))
@@ -98,7 +101,7 @@ func main() {
 	tr.Duration = tr.EndTime.Sub(tr.StartTime)
 	tr.DurationMins = tr.Duration.Minutes()
 
-	fmtutil.PrintJSON(tr)
+	logutil.FatalErr(fmtutil.PrintJSON(tr))
 
 	fmt.Println("DONE")
 }

@@ -1,0 +1,9 @@
+# Only the server's sources are copied; keep everything else out of the
+# build context.
+*
+!go.mod
+!go.sum
+!petstore.go
+!openapi.yaml
+!server/
+!cmd/
