@@ -36,3 +36,6 @@ nav:
     - Test AAuth Interop: guides/aauth-interop.md
     - MySQL Tools: guides/mysql-tools.md
     - Postman AI Readiness: guides/postman/index.md
+  - Releases:
+    - v0.2.0: releases/v0.2.0.md
+    - v0.1.0: releases/v0.1.0.md

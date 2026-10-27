@@ -1,0 +1,226 @@
+{
+  "irVersion": "1.0",
+  "project": "petstore",
+  "repository": "https://github.com/grokify/petstore",
+  "versioning": "semver",
+  "commitConvention": "conventional",
+  "maintainers": [
+    "grokify",
+    "johncwang@gmail.com"
+  ],
+  "releases": [
+    {
+      "version": "v0.2.0",
+      "date": "2026-10-26",
+      "highlights": [
+        {
+          "description": "`petstore-server` serves every operation of the Petstore OpenAPI definition from memory, so there is a real Swagger Petstore to call",
+          "commit": "c3af451"
+        },
+        {
+          "description": "The server can be an AAuth resource (`--auth aauth`): each operation requires the access its `x-aauth` annotation names, from the agent's identity to the person's approval of a scope",
+          "commit": "c31bf59"
+        },
+        {
+          "description": "The OpenAPI definition is embedded in package `petstore`, with an `x-aauth` annotation on every operation",
+          "commit": "3348b73"
+        },
+        {
+          "description": "A static container image runs the server, with a built-in health check",
+          "commit": "7600a76"
+        },
+        {
+          "description": "The MySQL tools read their databases from a JSON file named by `PETSTORE_DATASOURCES` instead of an untracked source file, so a clean clone builds",
+          "commit": "8c58d2e"
+        }
+      ],
+      "added": [
+        {
+          "description": "Petstore OpenAPI 3.1 definition (`openapi.yaml`) with 20 operations",
+          "commit": "06536dc"
+        },
+        {
+          "description": "Declare each operation's AAuth access level in the spec with an `x-aauth` annotation",
+          "commit": "57e0a6e"
+        },
+        {
+          "description": "Embed the OpenAPI definition in package `petstore`",
+          "commit": "3348b73"
+        },
+        {
+          "description": "In-memory store, seeded with six pets, and handlers for every operation",
+          "commit": "0219103"
+        },
+        {
+          "description": "Route every operation from the spec; with AAuth enabled, guard each one with aauth-go's `ResourceGuard`",
+          "commit": "c31bf59"
+        },
+        {
+          "description": "`petstore-server` command with `--listen`, `--auth`, `--url`, `--trust` and `--ca-file`; serves the spec at `/openapi.yaml` and `/openapi.json`",
+          "commit": "c3af451"
+        },
+        {
+          "description": "`petstore-server health` subcommand for container health checks",
+          "commit": "3e9b638"
+        },
+        {
+          "description": "`petstore-server` container image on a static, non-root base",
+          "commit": "7600a76"
+        },
+        {
+          "description": "`create_pets` reports the host, server version and row count before it inserts",
+          "commit": "3091db7"
+        },
+        {
+          "description": "Postman smoke collection, mock server and agent skills",
+          "commit": "79f7901"
+        },
+        {
+          "description": "Data sources for the MySQL tools and the pet benchmark, read from the JSON file `PETSTORE_DATASOURCES` names, with an example file",
+          "commit": "8c58d2e"
+        },
+        {
+          "description": "`BenchmarkPet` runs against a configured data source and is skipped without one",
+          "commit": "62890af"
+        }
+      ],
+      "changed": [
+        {
+          "description": "The MySQL tools take their databases from `cmd.LoadDataSourceSet()`, which replaces `GetDataSourceSet()` and returns an error; the file must not be readable by other users",
+          "commit": "8c58d2e"
+        },
+        {
+          "description": "The data sources file is opened once, inside its directory, and its mode is checked on the open file, so it cannot change between the check and the read",
+          "commit": "006d0a3"
+        },
+        {
+          "description": "The Java example connects to MySQL 5.7 over TLS 1.2",
+          "commit": "4589b74"
+        },
+        {
+          "description": "The module builds against the published releases of aauth-go v0.3.0 and mogo v0.75.0",
+          "commit": "0219103"
+        }
+      ],
+      "fixed": [
+        {
+          "description": "Handle the error from printing JSON in the MySQL tools",
+          "commit": "4c91e01"
+        },
+        {
+          "description": "Clean clones build: the tools no longer depend on a file that was not in the repository",
+          "commit": "8c58d2e"
+        }
+      ],
+      "security": [
+        {
+          "description": "`create_tables` no longer prints the database password",
+          "commit": "7dc3a35"
+        },
+        {
+          "description": "Database hostnames and credentials come from a private file outside the repository, never from source",
+          "commit": "8c58d2e"
+        },
+        {
+          "description": "The upload handler's multipart parse is bounded by `http.MaxBytesReader`; the lint suppression says so",
+          "commit": "e0b7d4d"
+        }
+      ],
+      "tests": [
+        {
+          "description": "Cover the spec, every operation and per-person orders",
+          "commit": "1619382"
+        },
+        {
+          "description": "Run the Petstore behind the aauth-go sandbox as an enrolled agent, end to end",
+          "commit": "e9bd1fc"
+        },
+        {
+          "description": "Check `petstore-server`'s options",
+          "commit": "e8931f6"
+        },
+        {
+          "description": "Cover loading data sources, including a file other users can read",
+          "commit": "fdb1247"
+        }
+      ],
+      "documentation": [
+        {
+          "description": "Plan the Petstore server with optional AAuth",
+          "commit": "61fc641"
+        },
+        {
+          "description": "Describe running `petstore-server`, plain and as an AAuth resource",
+          "commit": "ba2e9a4"
+        },
+        {
+          "description": "MkDocs site with a guide to testing AAuth interop",
+          "commit": "11bfc4a"
+        },
+        {
+          "description": "Postman AI readiness report",
+          "commit": "db2dd50"
+        },
+        {
+          "description": "Describe the MySQL tools and the data sources file",
+          "commit": "5a6baa0"
+        },
+        {
+          "description": "README shields and references",
+          "commit": "5a4f984"
+        },
+        {
+          "description": "Guides for running the server and the MySQL tools; interop guide uses the Compose profile for the Petstore"
+        },
+        {
+          "description": "Release notes for v0.1.0 and v0.2.0"
+        }
+      ],
+      "dependencies": [
+        {
+          "description": "Update dependencies; require aauth-go v0.3.0 and mogo v0.75.0",
+          "commit": "f33e171"
+        }
+      ]
+    },
+    {
+      "version": "v0.1.0",
+      "date": "2023-09-04",
+      "commit": "ffd2a84",
+      "highlights": [
+        {
+          "description": "The Petstore `pet` table for MySQL, as SQL and as a Go function that creates it",
+          "commit": "1c20230"
+        },
+        {
+          "description": "`create_tables` and `create_pets` commands that create the table and measure inserts",
+          "commit": "ca84eb9"
+        }
+      ],
+      "added": [
+        {
+          "description": "`models.CreatePetTable` and the embedded `pet` table definition",
+          "commit": "1c20230"
+        },
+        {
+          "description": "`create_tables` command that creates the `pet` table in a named MySQL database",
+          "commit": "ca84eb9"
+        },
+        {
+          "description": "`create_pets` command that inserts pets and reports how long they took",
+          "commit": "ca84eb9"
+        },
+        {
+          "description": "JBang Java example that inserts pets over JDBC",
+          "commit": "da6c6b1"
+        }
+      ],
+      "changed": [
+        {
+          "description": "Convert tabs and update indentation in the Java example",
+          "commit": "18eb10b"
+        }
+      ]
+    }
+  ]
+}
