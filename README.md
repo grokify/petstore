@@ -90,3 +90,9 @@ To test agents and AAuth implementations against the Petstore, see the
 docker build -t petstore-server .
 docker run --rm -p 127.0.0.1:8080:8080 petstore-server
 ```
+
+## References
+
+1. [OpenAPI Initiative](https://learn.openapis.org/examples/v3.0/petstore.html)
+1. [OpenAPI Tools](https://github.com/OpenAPITools/openapi-petstore)
+1. [Sagger.io API Reference](https://petstore3.swagger.io/)
