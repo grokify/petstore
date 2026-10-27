@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"os"
+	"path/filepath"
 	"runtime"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -38,16 +40,7 @@ func LoadDataSourceSet() (datasource.DataSourceSet, error) {
 // users (mode 0600). Windows does not enforce file modes, so the check is
 // skipped there.
 func ReadDataSourceSet(path string) (datasource.DataSourceSet, error) {
-	if runtime.GOOS != "windows" {
-		info, err := os.Stat(path)
-		if err != nil {
-			return datasource.DataSourceSet{}, err
-		}
-		if info.Mode().Perm()&0o077 != 0 {
-			return datasource.DataSourceSet{}, fmt.Errorf("%s is readable by other users (mode %04o); run chmod 600 on it", path, info.Mode().Perm())
-		}
-	}
-	b, err := os.ReadFile(path) //nolint:gosec // G304: the path is the operator's own configuration
+	b, err := readPrivateFile(path)
 	if err != nil {
 		return datasource.DataSourceSet{}, err
 	}
@@ -56,4 +49,31 @@ func ReadDataSourceSet(path string) (datasource.DataSourceSet, error) {
 		return datasource.DataSourceSet{}, fmt.Errorf("%s: %w", path, err)
 	}
 	return datasource.DataSourceSet{Data: m}, nil
+}
+
+// readPrivateFile reads path through one open handle, checking the mode of
+// that handle, so the file cannot change between the check and the read. The
+// file is opened inside its own directory, so a symbolic link cannot lead out
+// of it.
+func readPrivateFile(path string) (b []byte, err error) {
+	root, err := os.OpenRoot(filepath.Dir(path))
+	if err != nil {
+		return nil, err
+	}
+	defer func() { err = errors.Join(err, root.Close()) }()
+	f, err := root.Open(filepath.Base(path))
+	if err != nil {
+		return nil, err
+	}
+	defer func() { err = errors.Join(err, f.Close()) }()
+	if runtime.GOOS != "windows" {
+		info, statErr := f.Stat()
+		if statErr != nil {
+			return nil, statErr
+		}
+		if info.Mode().Perm()&0o077 != 0 {
+			return nil, fmt.Errorf("%s is readable by other users (mode %04o); run chmod 600 on it", path, info.Mode().Perm())
+		}
+	}
+	return io.ReadAll(f)
 }

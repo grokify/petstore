@@ -13,14 +13,24 @@ const testDataSources = `{"MY8MICRO": {"driver": "mysql", "hostname": "db.exampl
 
 func writeDataSources(t *testing.T, mode os.FileMode, body string) string {
 	t.Helper()
-	path := filepath.Join(t.TempDir(), "datasources.json")
-	if err := os.WriteFile(path, []byte(body), mode); err != nil {
+	dir := t.TempDir()
+	root, err := os.OpenRoot(dir)
+	if err != nil {
 		t.Fatal(err)
 	}
-	if err := os.Chmod(path, mode); err != nil {
+	defer func() {
+		if err := root.Close(); err != nil {
+			t.Error(err)
+		}
+	}()
+	const name = "datasources.json"
+	if err := root.WriteFile(name, []byte(body), mode); err != nil {
 		t.Fatal(err)
 	}
-	return path
+	if err := root.Chmod(name, mode); err != nil {
+		t.Fatal(err)
+	}
+	return filepath.Join(dir, name)
 }
 
 func TestLoadDataSourceSet(t *testing.T) {
