@@ -4,7 +4,7 @@ go 1.27.0
 
 require (
 	github.com/aauth-dev/aauth-go v0.3.0
-	github.com/go-sql-driver/mysql v1.10.1
+	github.com/go-sql-driver/mysql v1.10.2
 	github.com/grokify/cryptocharacters v0.0.0-20240929115012-cf7e54bbe2ea
 	github.com/grokify/gomysql v0.2.0
 	github.com/grokify/mogo v0.75.0
